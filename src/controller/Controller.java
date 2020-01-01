@@ -5,6 +5,7 @@ import movements.ComputerMovements;
 import view.GameBoardView;
 
 import javax.swing.JButton;
+import java.util.Arrays;
 
 public class Controller {
     private GameBoardView gameBoardView;
@@ -59,7 +60,7 @@ public class Controller {
     }
 
     private void userMovement(JButton jButton) {
-        int positionShown = getPositionByJButton(jButton);
+        int positionShown = Arrays.asList(jButtons).indexOf(jButton);
         gameBoard.setOPositionByPositionShown(positionShown);
         gameBoardView.marksPositionO(positionShown);
 
@@ -68,14 +69,5 @@ public class Controller {
         } else {
             pcMovement();
         }
-    }
-
-    private int getPositionByJButton(JButton jBtn) {
-        int index = 0;
-        for (JButton jButton : jButtons) {
-            if (jButton == jBtn) break;
-            index++;
-        }
-        return index;
     }
 }
