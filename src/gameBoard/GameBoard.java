@@ -99,10 +99,10 @@ public class GameBoard {
         int row = PositionMapping.getRowByStoredPosition(storedPosition);
         int column = PositionMapping.getColumnByStoredPosition(storedPosition);
 
-        return xMovementTracking.checkIfRowCountEqualsThree(row) ||
-                xMovementTracking.checkIfColumnCountEqualsThree(column) ||
-                xMovementTracking.checkIfDiagonalCountEqualsThree() ||
-                xMovementTracking.checkIfAntiDiagonalCountEqualsThree();
+        return oMovementTracking.checkIfRowCountEqualsThree(row) ||
+                oMovementTracking.checkIfColumnCountEqualsThree(column) ||
+                oMovementTracking.checkIfDiagonalCountEqualsThree() ||
+                oMovementTracking.checkIfAntiDiagonalCountEqualsThree();
     }
 
     public List<Position> getPositionUsedByX() {
