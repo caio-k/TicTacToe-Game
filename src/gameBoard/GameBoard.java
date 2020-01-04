@@ -110,6 +110,16 @@ public class GameBoard {
                 oMovementTracking.checkIfAntiDiagonalCountEqualsThree();
     }
 
+    public List<Integer> getWinningPositions() {
+        List<Integer> winningXPositions = xMovementTracking.getWinningsPositions();
+        List<Integer> winningOPositions = oMovementTracking.getWinningsPositions();
+        List<Integer> winningPositions =  winningXPositions.size() > 0 ? winningXPositions : winningOPositions;
+
+        List<Integer> positionList = new ArrayList<>();
+        winningPositions.forEach(storedPosition -> positionList.add(getPositionByStoredPosition(storedPosition).getPositionShownToUser()));
+        return positionList;
+    }
+
     public List<Position> getPositionUsedByX() {
         return xMovementTracking.getPositions();
     }

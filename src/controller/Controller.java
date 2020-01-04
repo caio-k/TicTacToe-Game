@@ -52,6 +52,7 @@ public class Controller {
 
         if (gameBoard.isXWinner(storedPosition)) {
             gameBoardView.blockAllJButtons();
+            gameBoardView.colorsWinnerJButtons(gameBoard.getWinningPositions());
         } else if (gameBoard.isADraw()) {
             gameBoardView.colorsAllJButton();
         }
@@ -64,6 +65,7 @@ public class Controller {
 
         if (gameBoard.isOWinner(positionShown)) {
             gameBoardView.blockAllJButtons();
+            gameBoardView.colorsWinnerJButtons(gameBoard.getWinningPositions());
         } else {
             pcMovement();
         }

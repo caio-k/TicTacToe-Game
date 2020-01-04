@@ -13,6 +13,7 @@ import java.util.List;
 public class GameBoardView extends JFrame {
 
     private List<JButton> jButtonList;
+    private Color endColor = new Color(190, 23, 40);
 
     public GameBoardView() {
         super("Tic Tac Toe");
@@ -78,8 +79,11 @@ public class GameBoardView extends JFrame {
     }
 
     public void colorsAllJButton() {
-        Color drawColor = new Color(190, 23, 40);
-        jButtonList.forEach(jButton -> jButton.setBackground(drawColor));
+        jButtonList.forEach(jButton -> jButton.setBackground(endColor));
+    }
+
+    public void colorsWinnerJButtons(List<Integer> winnerJButtonsNumber) {
+        winnerJButtonsNumber.forEach(number -> jButtonList.get(number).setBackground(endColor));
     }
 
 }
