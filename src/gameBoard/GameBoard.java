@@ -12,12 +12,14 @@ public class GameBoard {
     private Rotation rotation;
     private List<Position> gameBoard;
     private MovementTracking xMovementTracking, oMovementTracking;
+    private int movementCounter;
 
     public GameBoard(int firstMovementShownToUser) {
-        gameBoard = new ArrayList<>();
-        xMovementTracking = new MovementTracking();
-        oMovementTracking = new MovementTracking();
-        rotation = new Rotation(getNumberOfRotation(firstMovementShownToUser));
+        this.movementCounter = 0;
+        this.gameBoard = new ArrayList<>();
+        this.xMovementTracking = new MovementTracking();
+        this.oMovementTracking = new MovementTracking();
+        this.rotation = new Rotation(getNumberOfRotation(firstMovementShownToUser));
         init();
         setXPositionByPositionShown(firstMovementShownToUser);
     }
@@ -53,12 +55,14 @@ public class GameBoard {
         position.setSymbol(X_POSITION);
         doTrackingForX(position.getStoredPosition());
         xMovementTracking.addPosition(position);
+        movementCounter++;
     }
 
     public void setXPositionByStoredPosition(int storedPosition) {
         this.gameBoard.get(storedPosition).setSymbol(X_POSITION);
         doTrackingForX(storedPosition);
         xMovementTracking.addPosition(this.gameBoard.get(storedPosition));
+        movementCounter++;
     }
 
     public void setOPositionByPositionShown(int positionShown) {
@@ -73,6 +77,7 @@ public class GameBoard {
         if (row + column == 2) oMovementTracking.increaseAntiDiagonal();
 
         oMovementTracking.addPosition(position);
+        movementCounter++;
     }
 
     private void doTrackingForX(int storedPosition) {
@@ -107,6 +112,10 @@ public class GameBoard {
 
     public List<Position> getPositionUsedByX() {
         return xMovementTracking.getPositions();
+    }
+
+    public boolean isADraw() {
+        return movementCounter == 9;
     }
 
 }

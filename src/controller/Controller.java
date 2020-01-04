@@ -52,6 +52,8 @@ public class Controller {
 
         if (gameBoard.isXWinner(storedPosition)) {
             gameBoardView.blockAllJButtons();
+        } else if (gameBoard.isADraw()) {
+            gameBoardView.colorsAllJButton();
         }
     }
 

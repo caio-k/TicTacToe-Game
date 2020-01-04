@@ -77,4 +77,9 @@ public class GameBoardView extends JFrame {
         jButtonList.forEach(jButton -> jButton.setEnabled(false));
     }
 
+    public void colorsAllJButton() {
+        Color drawColor = new Color(190, 23, 40);
+        jButtonList.forEach(jButton -> jButton.setBackground(drawColor));
+    }
+
 }
