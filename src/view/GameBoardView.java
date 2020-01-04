@@ -7,10 +7,12 @@ import java.awt.GridLayout;
 import java.awt.Cursor;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameBoardView extends JFrame {
 
-    private JButton[] jButtons;
+    private List<JButton> jButtonList;
 
     public GameBoardView() {
         super("Tic Tac Toe");
@@ -28,22 +30,17 @@ public class GameBoardView extends JFrame {
         JPanel jPanel = new JPanel(new GridLayout(3,3));
         this.getContentPane().add(jPanel);
 
-        jButtons = new JButton[9];
-
-        for (int index = 0; index < jButtons.length; index++) {
-            jButtons[index] = new JButton();
+        jButtonList = new ArrayList<>();
+        while (jButtonList.size() < 9) {
+            jButtonList.add(new JButton());
         }
 
         createButtons();
-
-        for (JButton jButton : jButtons) {
-            jPanel.add(jButton);
-        }
+        jButtonList.forEach(jPanel::add);
     }
 
     private void createButtons() {
-
-        for (JButton jButton : jButtons) {
+        jButtonList.forEach(jButton -> {
             jButton.setSize(150, 150);
             jButton.setBackground(new Color(144,238,144));
             jButton.setFont(new Font("TimesRoman", Font.BOLD, 35));
@@ -51,30 +48,33 @@ public class GameBoardView extends JFrame {
             jButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
             jButton.setEnabled(false);
             jButton.setText("");
-        }
+        });
 
-        jButtons[4].setText("START");
-        jButtons[4].setEnabled(true);
+        JButton middleButton = jButtonList.get(4);
+        middleButton.setText("START");
+        middleButton.setEnabled(true);
     }
 
     public void marksPositionO(int position) {
-        jButtons[position].setText("O");
-        jButtons[position].setEnabled(false);
+        marksPosition(position, "O");
     }
 
     public void marksPositionX(int position) {
-        jButtons[position].setText("X");
-        jButtons[position].setEnabled(false);
+        marksPosition(position, "X");
     }
 
-    public JButton[] getJButtons() {
-        return jButtons;
+    private void marksPosition(int position, String symbol) {
+        JButton jButton = jButtonList.get(position);
+        jButton.setText(symbol);
+        jButton.setEnabled(false);
+    }
+
+    public List<JButton> getJButtons() {
+        return jButtonList;
     }
 
     public void blockAllJButtons() {
-        for (JButton jButton : jButtons) {
-            jButton.setEnabled(false);
-        }
+        jButtonList.forEach(jButton -> jButton.setEnabled(false));
     }
 
 }

@@ -5,13 +5,13 @@ import movements.ComputerMovements;
 import view.GameBoardView;
 
 import javax.swing.JButton;
-import java.util.Arrays;
+import java.util.List;
 
 public class Controller {
     private GameBoardView gameBoardView;
     private GameBoard gameBoard;
     private ComputerMovements computerMovements;
-    private JButton[] jButtons;
+    private List<JButton> jButtonList;
     private boolean firstClick;
     private int firstComputerMovement;
 
@@ -24,28 +24,24 @@ public class Controller {
     }
 
     public void initController() {
-        int index = 0;
-        jButtons = gameBoardView.getJButtons();
+        jButtonList = gameBoardView.getJButtons();
 
-        for (JButton jButton : jButtons) {
-            if (index == 4) {
-                jButton.addActionListener(event -> {
-                    if (firstClick) initGame();
-                    else userMovement(jButton);
-                });
-            } else {
-                jButton.addActionListener(event -> userMovement(jButton));
-            }
-            index++;
-        }
+        JButton middleJButton = jButtonList.get(4);
+        middleJButton.addActionListener(e -> {
+            if (firstClick) initGame();
+            else userMovement(middleJButton);
+        });
+        jButtonList.remove(middleJButton);
+        jButtonList.forEach(jButton -> jButton.addActionListener(e -> userMovement(jButton)));
+        jButtonList.add(4, middleJButton);
     }
 
     private void initGame() {
         this.firstClick = false;
-        for (JButton jButton : jButtons) {
+        jButtonList.forEach(jButton -> {
             jButton.setText("");
             jButton.setEnabled(true);
-        }
+        });
         gameBoardView.marksPositionX(this.firstComputerMovement);
     }
 
@@ -60,7 +56,7 @@ public class Controller {
     }
 
     private void userMovement(JButton jButton) {
-        int positionShown = Arrays.asList(jButtons).indexOf(jButton);
+        int positionShown = jButtonList.indexOf(jButton);
         gameBoard.setOPositionByPositionShown(positionShown);
         gameBoardView.marksPositionO(positionShown);
 
