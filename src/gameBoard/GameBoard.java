@@ -2,17 +2,19 @@ package gameBoard;
 
 import movements.MovementTracking;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static gameBoard.Symbol.*;
 
 public class GameBoard {
     private Rotation rotation;
-    private Position[] gameBoard;
+    private List<Position> gameBoard;
     private MovementTracking xMovementTracking, oMovementTracking;
 
     public GameBoard(int firstMovementShownToUser) {
-        gameBoard = new Position[9];
+        gameBoard = new ArrayList<>();
         xMovementTracking = new MovementTracking();
         oMovementTracking = new MovementTracking();
         rotation = new Rotation(getNumberOfRotation(firstMovementShownToUser));
@@ -31,19 +33,19 @@ public class GameBoard {
     }
 
     private void init() {
-        int[] magicPosition = {8, 3, 4, 1, 5, 9, 6, 7, 2};
-        for (int storedPosition = 0; storedPosition < gameBoard.length; storedPosition++) {
-            gameBoard[storedPosition] = new Position(rotation.storedPositionToPositionShown(storedPosition) , storedPosition, magicPosition[storedPosition]);
-            gameBoard[storedPosition].setSymbol(EMPTY);
+        List<Integer> magicPosition = Arrays.asList(8, 3, 4, 1, 5, 9, 6, 7, 2);
+        while (gameBoard.size() < 9) {
+            int storedPosition = gameBoard.size();
+            gameBoard.add(new Position(rotation.storedPositionToPositionShown(storedPosition), storedPosition, magicPosition.get(storedPosition)));
         }
     }
 
     private Position getPositionByPositionShown(int positionShown) {
-        return this.gameBoard[rotation.positionShownToStoredPosition(positionShown)];
+        return this.gameBoard.get(rotation.positionShownToStoredPosition(positionShown));
     }
 
     public Position getPositionByStoredPosition(int storedPosition) {
-        return this.gameBoard[storedPosition];
+        return this.gameBoard.get(storedPosition);
     }
 
     private void setXPositionByPositionShown(int positionShown) {
@@ -54,9 +56,9 @@ public class GameBoard {
     }
 
     public void setXPositionByStoredPosition(int storedPosition) {
-        this.gameBoard[storedPosition].setSymbol(X_POSITION);
+        this.gameBoard.get(storedPosition).setSymbol(X_POSITION);
         doTrackingForX(storedPosition);
-        xMovementTracking.addPosition(this.gameBoard[storedPosition]);
+        xMovementTracking.addPosition(this.gameBoard.get(storedPosition));
     }
 
     public void setOPositionByPositionShown(int positionShown) {

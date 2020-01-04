@@ -12,6 +12,7 @@ public class Position {
         this.positionShownToUser = positionShownToUser;
         this.storedPosition = storedPosition;
         this.magicPosition = magicPosition;
+        setSymbol(EMPTY);
     }
 
     public int getPositionShownToUser() {
