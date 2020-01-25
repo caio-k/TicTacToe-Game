@@ -83,4 +83,8 @@ public class MovementTracking {
         return this.winningsPositions;
     }
 
+    public int getWinningPositionsSize() {
+        return this.winningsPositions.size();
+    }
+
 }

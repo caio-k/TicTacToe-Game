@@ -111,9 +111,8 @@ public class GameBoard {
     }
 
     public List<Integer> getWinningPositions() {
-        List<Integer> winningXPositions = xMovementTracking.getWinningsPositions();
-        List<Integer> winningOPositions = oMovementTracking.getWinningsPositions();
-        List<Integer> winningPositions =  winningXPositions.size() > 0 ? winningXPositions : winningOPositions;
+        List<Integer> winningPositions =  xMovementTracking.getWinningPositionsSize() > 0 ?
+                xMovementTracking.getWinningsPositions() : oMovementTracking.getWinningsPositions();
 
         List<Integer> positionList = new ArrayList<>();
         winningPositions.forEach(storedPosition -> positionList.add(getPositionByStoredPosition(storedPosition).getPositionShownToUser()));

@@ -17,17 +17,11 @@ public class PositionMapping {
     }
 
     public static int getRowByStoredPosition(int storedPosition) {
-        if (storedPosition < 3) return 0;
-        else if (storedPosition < 6) return 1;
-        else return 2;
+        return (storedPosition - (storedPosition % 3)) / 3;
     }
 
     public static int getColumnByStoredPosition(int storedPosition) {
-        switch (storedPosition) {
-            case 0: case 3: case 6: return 0;
-            case 1: case 4: case 7: return 1;
-            default: return 2;
-        }
+        return storedPosition % 3;
     }
 
     public static int magicPositionToStoredPosition(int magicPosition) {
